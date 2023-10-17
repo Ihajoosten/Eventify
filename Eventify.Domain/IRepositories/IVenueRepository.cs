@@ -5,7 +5,7 @@ namespace Eventify.Domain.IRepositories
 {
     public interface IVenueRepository : IRepository<Venue>
     {
-        Task<IEnumerable<Venue>> GetVenuesByCountry(string country);
-        Task<IEnumerable<Venue>> GetVenuesByState(string state);    
+        Task<IEnumerable<Venue>?> GetVenuesByCountry(string country);
+        Task<IEnumerable<Venue>?> GetVenuesByState(string state);    
     }
 }

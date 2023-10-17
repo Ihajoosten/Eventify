@@ -5,6 +5,6 @@ namespace Eventify.Domain.IRepositories
 {
     public interface IRegistrationRepository : IRepository<Registration>
     {
-        Task<IEnumerable<User>> GetRegisteredUsersForEventAsync(Guid eventId);
+        Task<IEnumerable<User>?> GetRegisteredUsersForEventAsync(Guid eventId);
     }
 }
