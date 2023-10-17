@@ -1,11 +1,6 @@
 ﻿using Eventify.Domain.Entities.Base;
 using Eventify.Domain.ValueObjects;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Eventify.Domain.Entities
 {
@@ -19,10 +14,12 @@ namespace Eventify.Domain.Entities
         [EmailAddress(ErrorMessage = "Invalid email address.")]
         public required string Email { get; set; }
 
+        [DataType(DataType.Password)]
         [Required(ErrorMessage = "The Password field is required.")]
         [StringLength(100, MinimumLength = 6, ErrorMessage = "Password must be at least 6 characters.")]
         public required string Password { get; set; }
 
+        [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public required string ConfirmPassword { get; set; }
 
@@ -35,18 +32,23 @@ namespace Eventify.Domain.Entities
         public required string LastName { get; set; }
 
         [DataType(DataType.Date)]
+        [Required(ErrorMessage = "The BirthDate field is required.")]
         public required DateTime BirthDate { get; set; }
 
         [Required(ErrorMessage = "The Address field is required.")]
         public required Address UserAddress { get; set; }
 
+        [Required(ErrorMessage = "The PhoneNumber field is required.")]
+        [RegularExpression(@"^(\+\d{1,3}[-.\s]?)?(\d{1,4}[-.\s]?){1,14}\d{1,4}$", ErrorMessage = "Invalid phone number format.")]
         [StringLength(20, ErrorMessage = "Phone number cannot exceed 20 characters.")]
         public required string PhoneNumber { get; set; }
 
+        [Required(ErrorMessage = "The Gener field is required.")]
         [EnumDataType(typeof(Gender))]
         public Gender Gender { get; set; }
 
         [Required(ErrorMessage = "The Role field is required.")]
+        [EnumDataType(typeof(UserRole))]
         public UserRole Role { get; set; }
 
         public bool IsAdult()
@@ -58,7 +60,7 @@ namespace Eventify.Domain.Entities
             return age >= 18;
         }
 
-        private int CalculateAge(DateTime birthdate, DateTime referenceDate)
+        private static int CalculateAge(DateTime birthdate, DateTime referenceDate)
         {
             int age = referenceDate.Year - birthdate.Year;
 
