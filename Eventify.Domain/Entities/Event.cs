@@ -27,18 +27,14 @@ namespace Eventify.Domain.Entities
         [Url(ErrorMessage = "Invalid URL format.")]
         public string EventUrl { get; set; }
 
-        [Required(ErrorMessage = "The OrganizerEmail field is required.")]
-        [EmailAddress(ErrorMessage = "Invalid email address.")]
-        public string OrganizerEmail { get; set; }
-
-        [RegularExpression(@"^(\+\d{1,3}[-.\s]?)?(\d{1,4}[-.\s]?){1,14}\d{1,4}$", ErrorMessage = "Invalid phone number format.")]
-        public string OrganizerPhoneNumber { get; set; }
-
         [Required(ErrorMessage = "The IsRegistrationRequired field is required.")]
         public bool IsRegistrationRequired { get; set; }
 
         [Required(ErrorMessage = "The MaximumAttendees field is required.")]
         public int MaximumAttendees { get; set; }
+
+        [Required(ErrorMessage = "The OrganizerId field is required.")]
+        public Guid OrganizerId { get; set; }
 
         [Required(ErrorMessage = "The VenueId field is required.")]
         public Guid VenueId { get; set; }
@@ -46,7 +42,12 @@ namespace Eventify.Domain.Entities
         [Required(ErrorMessage = "The SponsorId field is required.")]
         public Guid SponsorId { get; set; }
 
+        // Relationships
+        public List<Session> Sessions { get; set; } = new List<Session>();
+        public List<Registration> Registrations { get; set; } = new List<Registration>();
+
         // Navigation properties
+        public User Organizer { get; set; }
         public Venue Venue { get; set; }
         public Sponsor Sponsor { get; set; }
     }

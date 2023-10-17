@@ -32,6 +32,6 @@ namespace Eventify.Domain.Entities
         // Navigation properties
         public Speaker Speaker { get; set; }
         public Event Event { get; set; }
-        public List<AttendeeFeedback>? Feedback { get; set; } = new List<AttendeeFeedback>();
+        public List<AttendeeFeedback>? Feedbacks { get; set; } = new List<AttendeeFeedback>();
     }
 }

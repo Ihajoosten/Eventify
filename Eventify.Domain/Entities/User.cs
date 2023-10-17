@@ -51,6 +51,12 @@ namespace Eventify.Domain.Entities
         [EnumDataType(typeof(UserRole))]
         public UserRole Role { get; set; }
 
+        // Relationships
+        public List<AttendeeFeedback> Feedbacks { get; set; } = new List<AttendeeFeedback>();
+        public List<Event> OrganizedEvents { get; set; } = new List<Event>();
+        public List<Registration> Registrations { get; set; } = new List<Registration>();
+
+
         public bool IsAdult()
         {
             // Calculate age based on the current date and the user's birthdate
