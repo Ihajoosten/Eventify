@@ -7,16 +7,16 @@ namespace Eventify.Domain.Entities
     {
         [Required(ErrorMessage = "The Rating field is required.")]
         [Range(1, 5, ErrorMessage = "Rating must be between 1 and 5.")]
-        public required int Rating { get; set; }
+        public int Rating { get; set; }
 
         [StringLength(500, ErrorMessage = "Comment cannot exceed 500 characters.")]
         public string? Comment { get; set; }
 
         [Required(ErrorMessage = "The SessionId field is required.")]
-        public required Guid SessionId { get; set; }
+        public Guid SessionId { get; set; }
 
         [Required(ErrorMessage = "The UserId field is required.")]
-        public required Guid UserId { get; set; }
+        public Guid UserId { get; set; }
 
         // Navigation properties
         public Session Session { get; set; }

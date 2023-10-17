@@ -8,43 +8,43 @@ namespace Eventify.Domain.Entities
     {
         [Required(ErrorMessage = "The Title field is required.")]
         [StringLength(100, ErrorMessage = "Title cannot exceed 100 characters.")]
-        public required string Title { get; set; }
+        public string Title { get; set; }
 
         [Required(ErrorMessage = "The Description field is required.")]
         [StringLength(500, ErrorMessage = "Description cannot exceed 500 characters.")]
-        public required string Description { get; set; }
+        public string Description { get; set; }
 
         [Required(ErrorMessage = "The StartDate field is required.")]
         [DataType(DataType.DateTime)]
-        public required DateTime StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         [Required(ErrorMessage = "The EndDate field is required.")]
         [DataType(DataType.DateTime)]
-        [DateGreaterThan("StartDate", ErrorMessage = "End date must be greater than Start date.")]
-        public required DateTime EndDate { get; set; }
+        [Compare(nameof(StartDate), ErrorMessage = "End date must be greater than Start date.")]
+        public DateTime EndDate { get; set; }
 
         [Required(ErrorMessage = "The Event URL field is required.")]
         [Url(ErrorMessage = "Invalid URL format.")]
-        public required string EventUrl { get; set; }
+        public string EventUrl { get; set; }
 
         [Required(ErrorMessage = "The OrganizerEmail field is required.")]
         [EmailAddress(ErrorMessage = "Invalid email address.")]
-        public required string OrganizerEmail { get; set; }
+        public string OrganizerEmail { get; set; }
 
         [RegularExpression(@"^(\+\d{1,3}[-.\s]?)?(\d{1,4}[-.\s]?){1,14}\d{1,4}$", ErrorMessage = "Invalid phone number format.")]
-        public required string OrganizerPhoneNumber { get; set; }
+        public string OrganizerPhoneNumber { get; set; }
 
         [Required(ErrorMessage = "The IsRegistrationRequired field is required.")]
-        public required bool IsRegistrationRequired { get; set; }
+        public bool IsRegistrationRequired { get; set; }
 
         [Required(ErrorMessage = "The MaximumAttendees field is required.")]
-        public required int MaximumAttendees { get; set; }
+        public int MaximumAttendees { get; set; }
 
         [Required(ErrorMessage = "The VenueId field is required.")]
-        public required Guid VenueId { get; set; }
+        public Guid VenueId { get; set; }
 
         [Required(ErrorMessage = "The SponsorId field is required.")]
-        public required Guid SponsorId { get; set; }
+        public Guid SponsorId { get; set; }
 
         // Navigation properties
         public Venue Venue { get; set; }
