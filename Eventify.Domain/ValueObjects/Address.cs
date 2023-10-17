@@ -6,23 +6,23 @@ namespace Eventify.Domain.ValueObjects
     {
         [Required(ErrorMessage = "The Street field is required.")]
         [StringLength(100, ErrorMessage = "Street cannot exceed 100 characters.")]
-        public required string Street { get; set; }
+        public string Street { get; set; }
 
         [Required(ErrorMessage = "The City field is required.")]
         [StringLength(50, ErrorMessage = "City cannot exceed 50 characters.")]
-        public required string City { get; set; }
+        public string City { get; set; }
 
         [Required(ErrorMessage = "The State field is required.")]
         [StringLength(50, ErrorMessage = "State cannot exceed 50 characters.")]
-        public required string State { get; set; }
+        public string State { get; set; }
 
         [Required(ErrorMessage = "The ZipCode field is required.")]
         [RegularExpression(@"^\d{5}(-\d{4})?$", ErrorMessage = "Invalid Zip Code.")]
-        public required string ZipCode { get; set; }
+        public string ZipCode { get; set; }
 
         [Required(ErrorMessage = "The State field is required.")]
         [StringLength(50, ErrorMessage = "State cannot exceed 50 characters.")]
-        public required string Country { get; set; }
+        public string Country { get; set; }
 
         public override string ToString()
         {
