@@ -1,11 +1,41 @@
+using Eventify.Domain.IRepositories;
+using Eventify.Domain.IRepositories.Base;
+using Eventify.Infrastructure.Data;
+using Eventify.Infrastructure.EFRepositories;
+using Eventify.Infrastructure.EFRepositories.Base;
+using Eventify.Infrastructure.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
+
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+var configuration = builder.Configuration;
 
-// Add services to the container.
+// Infastructure Database Dependencies
+services.AddDbContext<EventifyDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Infrastructure Repository Dependencies
+services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
+services.AddScoped<IUserRepository, UserRepository>();
+services.AddScoped<IVenueRepository, VenueRepository>();
+services.AddScoped<IEventRepository, EventRepository>();
+services.AddScoped<IAttendeeFeedbackRepository, AttendeeFeedbackRepository>();
+services.AddScoped<IRegistrationRepository, RegistrationRepository>();
+services.AddScoped<ISessionRepository, SessionRepository>();
+services.AddScoped<ISpeakerRepository, SpeakerRepository>();
+services.AddScoped<ISponsorRepository, SponsorRepository>();
+services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+// Core services
+services.AddControllers();
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
+services.AddLogging(loggingBuilder =>
+{
+    loggingBuilder.AddSerilog();
+    loggingBuilder.AddConsole();
+    loggingBuilder.AddDebug();
+});
 
 var app = builder.Build();
 

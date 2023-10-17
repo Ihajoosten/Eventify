@@ -5,6 +5,6 @@ namespace Eventify.Domain.IRepositories
 {
     public interface ISessionRepository : IRepository<Session>
     {
-        Task<IEnumerable<Session>> GetSessionsForEventAsync(Guid eventId);
+        Task<IEnumerable<Session>?> GetSessionsForEventAsync(Guid eventId);
     }
 }

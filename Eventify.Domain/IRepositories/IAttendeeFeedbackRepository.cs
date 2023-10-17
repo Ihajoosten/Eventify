@@ -3,10 +3,10 @@ using Eventify.Domain.IRepositories.Base;
 
 namespace Eventify.Domain.IRepositories
 {
-    internal interface IAttendeeFeedbackRepository : IRepository<AttendeeFeedback>
+    public interface IAttendeeFeedbackRepository : IRepository<AttendeeFeedback>
     {
-        Task<AttendeeFeedback> GetFeedbackForSessionAsync(int sessionId);
-        Task<double> GetAverageFeedbackForSession(int sessionId);
+        Task<IEnumerable<AttendeeFeedback>?> GetFeedbackForSessionAsync(Guid sessionId);
+        Task<double> GetAverageFeedbackForSession(Guid sessionId);
         Task<int> GetAmountOfFeedbackRatingsPerRating(int ratingAmount);
     }
 }

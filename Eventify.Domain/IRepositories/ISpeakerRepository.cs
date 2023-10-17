@@ -5,6 +5,6 @@ namespace Eventify.Domain.IRepositories
 {
     public interface ISpeakerRepository : IRepository<Speaker>
     {
-        Task<IEnumerable<Speaker>> GetSpeakersForEventAsync(Guid eventId);
+        Task<IEnumerable<Speaker>?> GetSpeakersForEventAsync(Guid eventId);
     }
 }
