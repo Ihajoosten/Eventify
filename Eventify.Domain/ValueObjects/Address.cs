@@ -23,6 +23,7 @@ namespace Eventify.Domain.ValueObjects
         [Required(ErrorMessage = "The State field is required.")]
         [StringLength(50, ErrorMessage = "State cannot exceed 50 characters.")]
         public required string Country { get; set; }
+
         public override string ToString()
         {
             // Return a formatted string representing the address
