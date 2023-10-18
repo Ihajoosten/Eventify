@@ -2,8 +2,8 @@
 
 namespace Eventify.Application.Commands.Event
 {
-    internal class DeleteEventCommand : IDeleteEventCommand
+    public class DeleteEventCommand : IDeleteEventCommand
     {
-        public Guid EventId { get; set; }
+        public Guid Id { get; set; }
     }
 }

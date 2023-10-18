@@ -5,7 +5,7 @@ using Eventify.Application.Interfaces.Handlers;
 
 namespace Eventify.Application.Handlers.Commands
 {
-    public class UserCommandHandler : ICommandHandler<IUserDto, IUserCommand>
+    /*public class UserCommandHandler : ICommandHandler<IUserDto, IUserCommand>
     {
         public IUserDto? Handle(IUserCommand command)
         {
@@ -31,5 +31,5 @@ namespace Eventify.Application.Handlers.Commands
             }
             return null;
         }
-    }
+    }*/
 }

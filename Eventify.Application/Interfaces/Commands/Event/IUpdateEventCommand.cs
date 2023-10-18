@@ -2,11 +2,12 @@
 {
     public interface IUpdateEventCommand : IEventCommand 
     {
-        public Guid EventId { get; set; }
-        public string NewTitle { get; set; }
-        public string NewDescription { get; set; }
-        public string NewEventUrl { get; set; }
-        public bool NewIsRegistrationRequired { get; set; }
-        public int NewMaximumAttendees { get; set; }
+        public Guid Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string EventUrl { get; set; }
+        public bool IsRegistrationRequired { get; set; }
+        public int MaximumAttendees { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

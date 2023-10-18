@@ -4,8 +4,9 @@ namespace Eventify.Application.Commands.Event
 {
     public class ChangeEventDateCommand : IChangeEventDateCommand
     {
-        public Guid EventId { get; set; }
-        public DateTime NewStartDate { get; set; }
-        public DateTime NewEndDate { get; set; }
+        public Guid Id { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     }
 }

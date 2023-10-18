@@ -20,6 +20,8 @@ namespace Eventify.Test.Infrastructure
         public async Task GetVenuesByCountry_Returns_Venues()
         {
             // clean database
+            _fixture.ClearData<User>();
+            _fixture.ClearData<Event>();
             _fixture.ClearData<Venue>();
 
             // Arrange
@@ -75,8 +77,13 @@ namespace Eventify.Test.Infrastructure
 
                 // Assert
                 Assert.NotNull(result);
-                Assert.Equal(1, result.Count());
+                Assert.Single(result);
                 Assert.Contains(venue1, result);
+
+                // clean database
+                _fixture.ClearData<User>();
+                _fixture.ClearData<Event>();
+                _fixture.ClearData<Venue>();
             }
         }
 
@@ -84,6 +91,8 @@ namespace Eventify.Test.Infrastructure
         public async Task GetVenuesByState_Returns_Venues()
         {
             // clean database
+            _fixture.ClearData<User>();
+            _fixture.ClearData<Event>();
             _fixture.ClearData<Venue>();
 
             // Arrange
@@ -141,6 +150,11 @@ namespace Eventify.Test.Infrastructure
                 Assert.NotNull(result);
                 Assert.Equal(1, result.Count());
                 Assert.Contains(venue1, result);
+
+                // clean database
+                _fixture.ClearData<User>();
+                _fixture.ClearData<Event>();
+                _fixture.ClearData<Venue>();
             }
         }
     }

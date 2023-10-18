@@ -2,6 +2,6 @@
 {
     public interface IDeleteEventCommand : IEventCommand
     {
-        public Guid EventId { get; set; }
+        public Guid Id { get; set; }
     }
 }

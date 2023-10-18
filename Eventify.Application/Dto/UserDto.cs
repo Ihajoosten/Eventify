@@ -15,5 +15,10 @@ namespace Eventify.Application.Dto
         public string PhoneNumber { get; set; }
         public Gender Gender { get; set; }
         public UserRole Role { get; set; }
+
+        // Navigation properties
+        public IEnumerable<IAttendeeFeedbackDto> Feedbacks { get; set; }
+        public IEnumerable<IEventDto> OrganizedEvents { get; set; }
+        public IEnumerable<IRegistrationDto> Registrations { get; set; }
     }
 }

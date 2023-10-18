@@ -73,11 +73,17 @@ namespace Eventify.Test.Infrastructure
             Assert.Equal(2, result.Count());
             Assert.Contains(@event1, result);
             Assert.Contains(@event2, result);
+
+            // clean database
+            _fixture.ClearData<Event>();
         }
 
         [Fact]
         public async Task GetEventsByVenue_Returns_Events()
         {
+            // clean database
+            _fixture.ClearData<Event>();
+
             // Arrange
             var options = new DbContextOptionsBuilder<TestDbContext>()
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
@@ -132,6 +138,9 @@ namespace Eventify.Test.Infrastructure
             Assert.Equal(2, result.Count());
             Assert.Contains(@event1, result);
             Assert.Contains(@event2, result);
+
+            // clean database
+            _fixture.ClearData<Event>();
         }
 
         [Fact]
@@ -193,11 +202,17 @@ namespace Eventify.Test.Infrastructure
             Assert.Equal(2, result.Count());
             Assert.Contains(@event1, result);
             Assert.Contains(@event2, result);
-        }
+
+            // clean database
+            _fixture.ClearData<Event>();
+        }   
 
         [Fact]
         public async Task GetEventsByOrganizer_Returns_Events()
         {
+            // clean database
+            _fixture.ClearData<Event>();
+
             // Arrange
             var options = new DbContextOptionsBuilder<TestDbContext>()
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
@@ -266,6 +281,9 @@ namespace Eventify.Test.Infrastructure
                 Assert.Equal(2, result.Count());
                 Assert.Contains(@event1, result);
                 Assert.Contains(@event2, result);
+
+                // clean database
+                _fixture.ClearData<Event>();
             }
         }
     }

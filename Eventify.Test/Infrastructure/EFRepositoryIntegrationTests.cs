@@ -20,6 +20,8 @@ namespace Eventify.Test.Infrastructure
         {
             // clean database
             _fixture.ClearData<User>();
+            _fixture.ClearData<Event>();
+            _fixture.ClearData<Venue>();
 
             // Arrange
             var options = new DbContextOptionsBuilder<TestDbContext>()
@@ -69,6 +71,11 @@ namespace Eventify.Test.Infrastructure
             Assert.Equal(2, result.Count());
             Assert.Contains(user1, result);
             Assert.Contains(user2, result);
+
+            // clean database
+            _fixture.ClearData<User>();
+            _fixture.ClearData<Event>();
+            _fixture.ClearData<Venue>();
         }
 
         [Fact]
@@ -76,6 +83,8 @@ namespace Eventify.Test.Infrastructure
         {
             // clean database
             _fixture.ClearData<User>();
+            _fixture.ClearData<Event>();
+            _fixture.ClearData<Venue>();
 
             // Arrange
             var options = new DbContextOptionsBuilder<TestDbContext>()
@@ -109,6 +118,11 @@ namespace Eventify.Test.Infrastructure
 
             // Assert
             Assert.Equal(entity, result);
+
+            // clean database
+            _fixture.ClearData<User>();
+            _fixture.ClearData<Event>();
+            _fixture.ClearData<Venue>();
         }
 
         [Fact]
@@ -116,6 +130,8 @@ namespace Eventify.Test.Infrastructure
         {
             // clean database
             _fixture.ClearData<User>();
+            _fixture.ClearData<Event>();
+            _fixture.ClearData<Venue>();
 
             // Arrange
             var options = new DbContextOptionsBuilder<TestDbContext>()
@@ -153,6 +169,11 @@ namespace Eventify.Test.Infrastructure
             // Assert
             Assert.NotNull(updatedUser);
             Assert.Equal("UpdatedFirstName", updatedUser.FirstName);
+
+            // clean database
+            _fixture.ClearData<User>();
+            _fixture.ClearData<Event>();
+            _fixture.ClearData<Venue>();
         }
 
         [Fact]
@@ -160,6 +181,8 @@ namespace Eventify.Test.Infrastructure
         {
             // clean database
             _fixture.ClearData<User>();
+            _fixture.ClearData<Event>();
+            _fixture.ClearData<Venue>();
 
             // Arrange
             var options = new DbContextOptionsBuilder<TestDbContext>()
@@ -198,7 +221,11 @@ namespace Eventify.Test.Infrastructure
             // Ensure the entity is removed from the database
             var userFromDb = await context.Users.FindAsync(user.Id);
             Assert.Null(userFromDb);
-        }
 
+            // clean database
+            _fixture.ClearData<User>();
+            _fixture.ClearData<Event>();
+            _fixture.ClearData<Venue>();
+        }
     }
 }
