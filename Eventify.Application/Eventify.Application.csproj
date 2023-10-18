@@ -15,4 +15,10 @@
     <ProjectReference Include="..\Eventify.Domain\Eventify.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\" />
+    <Folder Include="Handlers\" />
+    <Folder Include="Queries\" />
+  </ItemGroup>
+
 </Project>
