@@ -4,6 +4,6 @@ namespace Eventify.Application.Commands.User
 {
     public class DeleteUserCommand : IDeleteUserCommand
     {
-        public Guid UserId { get; set; }
+        public Guid Id { get; set; }
     }
 }

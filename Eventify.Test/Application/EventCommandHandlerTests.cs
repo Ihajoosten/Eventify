@@ -113,7 +113,6 @@ namespace Eventify.Test.Application
 
             repositoryMock.Setup(repo => repo.AddAsync(It.IsAny<Event>())).ReturnsAsync(createdEvent);
 
-
             var updateCommand = new UpdateEventCommand
             {
                 Id = createdEvent.Id,
@@ -128,7 +127,7 @@ namespace Eventify.Test.Application
             // Mock repository behavior
             var updatedEvent = new Event
             {
-                Id = Guid.NewGuid(),
+                Id = createdEvent.Id,
                 Title = "Updated Title",
                 Description = "Updated Description",
                 EventUrl = "http://updated.com",
@@ -143,11 +142,13 @@ namespace Eventify.Test.Application
             // Mock mapper behavior
             var expectedDto = new EventDto
             {
-                Id = updatedEvent.Id,
+                Id = createdEvent.Id,
                 Description = updatedEvent.Description,
                 Title = updatedEvent.Title,
                 EventUrl = updatedEvent.EventUrl,
                 MaximumAttendees = updatedEvent.MaximumAttendees,
+                StartDate = createdEvent.StartDate,
+                IsRegistrationRequired = updatedEvent.IsRegistrationRequired,
             };
 
             mapperMock.Setup(mapper => mapper.Map<IEventDto>(It.IsAny<Event>())).Returns(expectedDto);
@@ -163,6 +164,8 @@ namespace Eventify.Test.Application
             Assert.Equal(expectedDto.Id, result.Id);
             Assert.Equal(expectedDto.Description, result.Description);
             Assert.Equal(expectedDto.EventUrl, result.EventUrl);
+            Assert.Equal(expectedDto.StartDate, result.StartDate);
+            Assert.Equal(expectedDto.IsRegistrationRequired, result.IsRegistrationRequired);
 
             // clean database
             _fixture.ClearData<Event>();
@@ -180,6 +183,7 @@ namespace Eventify.Test.Application
             var mapperMock = new Mock<IMapper>();
 
             var handler = new EventCommandHandler(repositoryMock.Object, loggerMock.Object, mapperMock.Object);
+            
             // Mock repository behavior
             var createdEvent = new Event
             {
@@ -236,6 +240,169 @@ namespace Eventify.Test.Application
             Assert.Equal(expectedDto.Description, result.Description);
             Assert.Equal(expectedDto.StartDate, result.StartDate);
             Assert.Equal(expectedDto.StartDate, result.StartDate);
+
+            // clean database
+            _fixture.ClearData<Event>();
+        }
+
+        [Fact]
+        public async Task ChangeDate_ShouldReturnValidDto()
+        {
+            // clean database
+            _fixture.ClearData<Event>();
+
+            // Arrange
+            var repositoryMock = new Mock<IEventRepository>();
+            var loggerMock = new Mock<ILogger<EventCommandHandler>>();
+            var mapperMock = new Mock<IMapper>();
+
+            var handler = new EventCommandHandler(repositoryMock.Object, loggerMock.Object, mapperMock.Object);
+
+            // Mock repository behavior
+            var createdEvent = new Event
+            {
+                Id = Guid.NewGuid(),
+                Title = "Sample Title",
+                Description = "Test Description",
+                StartDate = DateTime.Now.AddDays(10),
+                EndDate = DateTime.Now.AddDays(25),
+                EventUrl = "http://example.com",
+                IsRegistrationRequired = true,
+                MaximumAttendees = 50,
+                VenueId = Guid.NewGuid(),
+                SponsorId = Guid.NewGuid(),
+                OrganizerId = Guid.NewGuid(),
+                Created = DateTime.UtcNow,
+                Updated = DateTime.UtcNow,
+            };
+
+            repositoryMock.Setup(repo => repo.AddAsync(It.IsAny<Event>())).ReturnsAsync(createdEvent);
+
+            var changeDateCommand = new ChangeEventDateCommand
+            {
+                Id = createdEvent.Id,
+                StartDate = DateTime.UtcNow.AddDays(20),
+                EndDate = DateTime.UtcNow.AddDays(40),
+                UpdatedAt = DateTime.UtcNow,
+            };
+
+            // Mock repository behavior
+            var updatedEvent = new Event
+            {
+                Id = createdEvent.Id,
+                Description = "Event with Changed Date",
+                StartDate = DateTime.UtcNow.AddDays(20),
+                EndDate = DateTime.UtcNow.AddDays(40),
+                Updated = DateTime.UtcNow,
+            };
+
+            repositoryMock.Setup(repo => repo.UpdateAsync(It.IsAny<Event>())).ReturnsAsync(updatedEvent);
+
+            // Mock mapper behavior
+            var expectedDto = new EventDto
+            {
+                Id = updatedEvent.Id,
+                Description = updatedEvent.Description,
+                StartDate = updatedEvent.StartDate,
+                EndDate = updatedEvent.EndDate,
+                Title = createdEvent.Title,
+                EventUrl = createdEvent.Title
+             };
+
+            mapperMock.Setup(mapper => mapper.Map<IEventDto>(It.IsAny<Event>())).Returns(expectedDto);
+
+            // Act
+            var result = await handler.Handle(changeDateCommand);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<EventDto>(result);
+
+            // Additional asserts for property matching
+            Assert.Equal(expectedDto.Id, result.Id);
+            Assert.Equal(expectedDto.Description, result.Description);
+            Assert.Equal(expectedDto.StartDate, result.StartDate);
+            Assert.Equal(expectedDto.EndDate, result.EndDate);
+            Assert.Equal(expectedDto.Title, result.Title);
+            Assert.Equal(expectedDto.EventUrl, result.EventUrl);
+
+            // clean database
+            _fixture.ClearData<Event>();
+        }
+
+        [Fact]
+        public async Task ChangeVenue_ShouldReturnValidDto()
+        {
+            // clean database
+            _fixture.ClearData<Event>();
+
+            // Arrange
+            var repositoryMock = new Mock<IEventRepository>();
+            var loggerMock = new Mock<ILogger<EventCommandHandler>>();
+            var mapperMock = new Mock<IMapper>();
+
+            var handler = new EventCommandHandler(repositoryMock.Object, loggerMock.Object, mapperMock.Object);
+
+            // Mock repository behavior
+            var createdEvent = new Event
+            {
+                Id = Guid.NewGuid(),
+                Title = "Sample Title",
+                Description = "Test Description",
+                StartDate = DateTime.Now.AddDays(10),
+                EndDate = DateTime.Now.AddDays(25),
+                EventUrl = "http://example.com",
+                IsRegistrationRequired = true,
+                MaximumAttendees = 50,
+                VenueId = Guid.NewGuid(),
+                SponsorId = Guid.NewGuid(),
+                OrganizerId = Guid.NewGuid(),
+                Created = DateTime.UtcNow,
+                Updated = DateTime.UtcNow,
+            };
+
+            repositoryMock.Setup(repo => repo.AddAsync(It.IsAny<Event>())).ReturnsAsync(createdEvent);
+
+            var changeVenueCommand = new ChangeVenueCommand
+            {
+                Id = createdEvent.Id,
+                VenueId = Guid.NewGuid(),
+                UpdatedAt = DateTime.UtcNow,
+            };
+
+            // Mock repository behavior
+            var updatedEvent = new Event
+            {
+                Id = createdEvent.Id,
+                Description = "Event with Changed Venue",
+                VenueId = changeVenueCommand.VenueId,
+            };
+
+            repositoryMock.Setup(repo => repo.UpdateAsync(It.IsAny<Event>())).ReturnsAsync(updatedEvent);
+
+            // Mock mapper behavior
+            var expectedDto = new EventDto
+            {
+                Id = updatedEvent.Id,
+                Description = updatedEvent.Description,
+                Title = createdEvent.Title,
+                EventUrl = createdEvent.EventUrl
+            };
+
+            mapperMock.Setup(mapper => mapper.Map<IEventDto>(It.IsAny<Event>())).Returns(expectedDto);
+
+            // Act
+            var result = await handler.Handle(changeVenueCommand);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<EventDto>(result);
+
+            // Additional asserts for property matching
+            Assert.Equal(expectedDto.Id, result.Id);
+            Assert.Equal(expectedDto.Description, result.Description);
+            Assert.Equal(expectedDto.Title, result.Title);
+            Assert.Equal(expectedDto.EventUrl, result.EventUrl);
 
             // clean database
             _fixture.ClearData<Event>();

@@ -8,6 +8,6 @@ namespace Eventify.Application.Interfaces.Commands.User
 {
     public interface IDeleteUserCommand : IUserCommand
     {
-        public Guid UserId { get; set; }
+        public Guid Id { get; set; }
     }
 }

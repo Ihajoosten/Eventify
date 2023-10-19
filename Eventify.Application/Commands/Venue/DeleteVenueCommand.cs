@@ -4,6 +4,6 @@ namespace Eventify.Application.Commands.Venue
 {
     public class DeleteVenueCommand : IDeleteVenueCommand
     {
-        public Guid VenueId { get; set; }
+        public Guid Id { get; set; }
     }
 }

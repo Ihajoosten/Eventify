@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Eventify.Application.Interfaces.Dto;
 
 namespace Eventify.Application.Dto
 {
-    public class AddressDto
+    public class AddressDto : IAddressDto
     {
         public string Country { get; set; }
         public string State { get; set; }

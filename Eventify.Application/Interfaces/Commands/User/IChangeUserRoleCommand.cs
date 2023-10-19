@@ -4,7 +4,7 @@ namespace Eventify.Application.Interfaces.Commands.User
 {
     public interface IChangeUserRoleCommand : IUserCommand
     {
-        public Guid UserId { get; set; }
-        public UserRole NewRole { get; set; }
+        public Guid Id { get; set; }
+        public UserRole Role { get; set; }
     }
 }

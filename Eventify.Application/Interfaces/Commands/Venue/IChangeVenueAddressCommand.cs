@@ -4,7 +4,7 @@ namespace Eventify.Application.Interfaces.Commands.Venue
 {
     public interface IChangeVenueAddressCommand : IVenueCommand
     {
-        public Guid VenueId { get; set; }
-        public Address NewVenueAddress { get; set; }
+        public Guid Id { get; set; }
+        public Address VenueAddress { get; set; }
     }
 }

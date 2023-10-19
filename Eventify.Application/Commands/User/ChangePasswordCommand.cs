@@ -4,9 +4,8 @@ namespace Eventify.Application.Commands.User
 {
     public class ChangePasswordCommand : IChangePasswordCommand
     {
-        public Guid UserId { get; set; }
-        public string CurrentPassword { get; set; }
-        public string NewPassword { get; set; }
-        public string ConfirmNewPassword { get; set; }
+        public Guid Id { get; set; }
+        public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
     }
 }

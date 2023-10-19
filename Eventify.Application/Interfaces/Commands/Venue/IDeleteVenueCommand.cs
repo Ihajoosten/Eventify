@@ -2,6 +2,6 @@
 {
     public interface IDeleteVenueCommand : IVenueCommand
     {
-        public Guid VenueId { get; set; }
+        public Guid Id { get; set; }
     }
 }
