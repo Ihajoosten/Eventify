@@ -20,41 +20,25 @@ namespace Eventify.Infrastructure.EFRepositories.Base
         {
             try
             {
-                await _unitOfWork.BeginTransactionAsync();
+                var entities = await _unitOfWork.Set<T>().ToListAsync();
+                if (entities.Any())
                 {
-                    try
-                    {
-                        var entities = await _unitOfWork.Set<T>().ToListAsync();
-                        if (entities.Any())
-                        {
-                            _logger.LogInformation($"Retrieved {entities.Count} records from {typeof(T).Name}.");
-                            await _unitOfWork.CommitAsync();
-                            return entities;
-                        }
-                        else
-                        {
-                            _logger.LogWarning($"Entities were not found.");
-                            await _unitOfWork.RollbackAsync();
-                            return null;
-                        }
-                    }
-                    catch (DbUpdateException ex)
-                    {
-                        await _unitOfWork.RollbackAsync();
-                        _logger.LogError(ex, $"Error while updating the database with changes from {typeof(T).Name}.");
-                        throw new Exception($"Error while updating the database with changes from {typeof(T).Name}.", ex);
-                    }
-                    catch (Exception ex)
-                    {
-                        await _unitOfWork.RollbackAsync();
-                        _logger.LogError(ex, $"Error while getting records from {typeof(T).Name}.");
-                        throw;
-                    }
+                    _logger.LogInformation($"Retrieved {entities.Count} records from {typeof(T).Name}.");
+                    await _unitOfWork.CommitAsync();
+                    return entities;
+                }
+                else
+                {
+                    _logger.LogWarning($"Entities were not found.");
+                    await _unitOfWork.RollbackAsync();
+                    return null;
                 }
             }
+
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error beginning transaction for {nameof(GetAllAsync)}.");
+                await _unitOfWork.RollbackAsync();
+                _logger.LogError(ex, $"Error while getting records from {typeof(T).Name}.");
                 throw;
             }
         }
@@ -63,41 +47,21 @@ namespace Eventify.Infrastructure.EFRepositories.Base
         {
             try
             {
-                await _unitOfWork.BeginTransactionAsync();
+                var entity = await _unitOfWork.Set<T>().FindAsync(id);
+                if (entity != null)
                 {
-                    try
-                    {
-                        var entity = await _unitOfWork.Set<T>().FindAsync(id);
-                        if (entity != null)
-                        {
-                            _logger.LogInformation($"Retrieved {entity} record from {typeof(T).Name}.");
-                            await _unitOfWork.CommitAsync();
-                            return entity;
-                        }
-                        else
-                        {
-                            _logger.LogWarning($"Entity with ID: {id} was not found.");
-                            await _unitOfWork.RollbackAsync();
-                            return null;
-                        }
-                    }
-                    catch (DbUpdateException ex)
-                    {
-                        await _unitOfWork.RollbackAsync();
-                        _logger.LogError(ex, $"Error while updating the database with changes from {typeof(T).Name}.");
-                        throw new Exception($"Error while updating the database with changes from {typeof(T).Name}.", ex);
-                    }
-                    catch (Exception ex)
-                    {
-                        await _unitOfWork.RollbackAsync();
-                        _logger.LogError(ex, $"Error while getting record from {typeof(T).Name}.");
-                        throw;
-                    }
+                    _logger.LogInformation($"Retrieved {entity} record from {typeof(T).Name}.");
+                    return entity;
+                }
+                else
+                {
+                    _logger.LogWarning($"Entity with ID: {id} was not found.");
+                    return null;
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error beginning transaction for {nameof(GetByIdAsync)}.");
+                _logger.LogError(ex, $"Error while getting record from {typeof(T).Name}.");
                 throw;
             }
         }

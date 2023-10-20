@@ -1,19 +1,13 @@
-﻿using Eventify.Domain.Entities;
-using Eventify.Domain.IRepositories;
-using Eventify.Domain.ValueObjects;
-using Moq;
-
-namespace Eventify.Test.Domain
+﻿namespace Eventify.UnitTest.IRepositories
 {
     public class UserRepositoryTests
     {
         [Fact]
-        public async Task GetUserByUsernameAsync_ReturnsUser_WhenUserExists()
+        public async Task GetUserByUsernameAsync_ValidUsername_ReturnsUser()
         {
             // Arrange
-            var username = "john_doe";
-            var expectedUser = new User { Username = username, /* other properties */ };
-
+            var username = "TestUser";
+            var expectedUser = new User { Username = username };
             var userRepositoryMock = new Mock<IUserRepository>();
             userRepositoryMock.Setup(repo => repo.GetUserByUsernameAsync(username)).ReturnsAsync(expectedUser);
 
@@ -21,16 +15,14 @@ namespace Eventify.Test.Domain
             var result = await userRepositoryMock.Object.GetUserByUsernameAsync(username);
 
             // Assert
-            Assert.NotNull(result);
             Assert.Equal(expectedUser, result);
         }
 
         [Fact]
-        public async Task GetUserByUsernameAsync_ReturnsNull_WhenUserDoesNotExist()
+        public async Task GetUserByUsernameAsync_InvalidUsername_ReturnsNull()
         {
             // Arrange
-            var username = "nonexistent_user";
-
+            var username = "NonExistentUser";
             var userRepositoryMock = new Mock<IUserRepository>();
             userRepositoryMock.Setup(repo => repo.GetUserByUsernameAsync(username)).ReturnsAsync((User)null);
 
@@ -42,34 +34,87 @@ namespace Eventify.Test.Domain
         }
 
         [Fact]
-        public async Task GetUsersByGenderAsync_ReturnsUsers_WhenUsersExist()
+        public async Task GetUsersByCity_ValidCity_ReturnsUsers()
         {
             // Arrange
-            var gender = Gender.Male;
-            var expectedUsers = new List<User>
-        {
-            new User { Gender = gender, /* other properties */ },
-            new User { Gender = gender, /* other properties */ },
-            // Add more users as needed
-        };
-
+            var city = "TestCity";
+            var users = new List<User> { new User { UserAddress = new Address { City = city } }, new User { UserAddress = new Address { City = city } } };
             var userRepositoryMock = new Mock<IUserRepository>();
-            userRepositoryMock.Setup(repo => repo.GetUsersByGenderAsync(gender)).ReturnsAsync(expectedUsers);
+            userRepositoryMock.Setup(repo => repo.GetUsersByCity(city)).ReturnsAsync(users);
+
+            // Act
+            var result = await userRepositoryMock.Object.GetUsersByCity(city);
+
+            // Assert
+            Assert.Equal(users, result);
+        }
+
+        [Fact]
+        public async Task GetUsersByCity_NonExistentCity_ReturnsEmptyList()
+        {
+            // Arrange
+            var city = "NonExistentCity";
+            var userRepositoryMock = new Mock<IUserRepository>();
+            userRepositoryMock.Setup(repo => repo.GetUsersByCity(city)).ReturnsAsync(new List<User>());
+
+            // Act
+            var result = await userRepositoryMock.Object.GetUsersByCity(city);
+
+            // Assert
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public async Task GetUsersByCountry_NonExistentCountry_ReturnsEmptyList()
+        {
+            // Arrange
+            var country = "NonExistentCountry";
+            var userRepositoryMock = new Mock<IUserRepository>();
+            userRepositoryMock.Setup(repo => repo.GetUsersByCountry(country)).ReturnsAsync(new List<User>());
+
+            // Act
+            var result = await userRepositoryMock.Object.GetUsersByCountry(country);
+
+            // Assert
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public async Task GetUsersByState_NonExistentState_ReturnsEmptyList()
+        {
+            // Arrange
+            var state = "NonExistentState";
+            var userRepositoryMock = new Mock<IUserRepository>();
+            userRepositoryMock.Setup(repo => repo.GetUsersByState(state)).ReturnsAsync(new List<User>());
+
+            // Act
+            var result = await userRepositoryMock.Object.GetUsersByState(state);
+
+            // Assert
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public async Task GetUsersByGenderAsync_ValidGender_ReturnsUsers()
+        {
+            // Arrange
+            var gender = Gender.Male; // Replace with your desired gender
+            var users = new List<User> { new User { Gender = gender }, new User { Gender = gender } };
+            var userRepositoryMock = new Mock<IUserRepository>();
+            userRepositoryMock.Setup(repo => repo.GetUsersByGenderAsync(gender)).ReturnsAsync(users);
 
             // Act
             var result = await userRepositoryMock.Object.GetUsersByGenderAsync(gender);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Equal(expectedUsers, result);
+            Assert.Equal(users, result);
         }
 
         [Fact]
-        public async Task GetUsersByGenderAsync_ReturnsEmptyList_WhenNoUsersExist()
+        public async Task GetUsersByGenderAsync_NonExistentGender_ReturnsEmptyList()
         {
             // Arrange
-            var gender = Gender.Other;
-
+            var gender = Gender.Other; // Replace with a gender that is not in your test data
             var userRepositoryMock = new Mock<IUserRepository>();
             userRepositoryMock.Setup(repo => repo.GetUsersByGenderAsync(gender)).ReturnsAsync(new List<User>());
 
@@ -77,7 +122,6 @@ namespace Eventify.Test.Domain
             var result = await userRepositoryMock.Object.GetUsersByGenderAsync(gender);
 
             // Assert
-            Assert.NotNull(result);
             Assert.Empty(result);
         }
 
@@ -185,3 +229,4 @@ namespace Eventify.Test.Domain
         }
     }
 }
+

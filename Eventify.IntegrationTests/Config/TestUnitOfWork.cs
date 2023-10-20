@@ -1,9 +1,7 @@
-﻿using Eventify.Domain.IRepositories;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace Eventify.Test.Configuration
+namespace Eventify.IntegrationTests.Config
 {
     public class TestUnitOfWork : IUnitOfWork
     {
@@ -36,7 +34,7 @@ namespace Eventify.Test.Configuration
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) => await _dbContext.SaveChangesAsync(cancellationToken);
-        
+
         public DbSet<T> Set<T>() where T : class => _dbContext.Set<T>();
         public EntityEntry<T> Entry<T>(T entity) where T : class => _dbContext.Entry(entity);
         public void Dispose() => _transaction?.Dispose();

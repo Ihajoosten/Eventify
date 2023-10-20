@@ -1,15 +1,6 @@
-﻿using Eventify.Domain.Entities;
-using Eventify.Domain.IRepositories.Base;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Eventify.Test.Domain
+﻿namespace Eventify.UnitTest.IRepositories
 {
-    public class IRepositoryTests
+    public class RepositoryTests
     {
         [Fact]
         public async Task GetByIdAsync_Returns_Entity_When_Found()

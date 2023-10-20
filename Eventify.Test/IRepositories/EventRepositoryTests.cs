@@ -1,8 +1,4 @@
-﻿using Eventify.Domain.Entities;
-using Eventify.Domain.IRepositories;
-using Moq;
-
-namespace Eventify.Test.Domain
+﻿namespace Eventify.UnitTest.IRepositories
 {
     public class EventRepositoryTests
     {
@@ -47,19 +43,19 @@ namespace Eventify.Test.Domain
         public async Task GetEventsByOrganizer_ReturnsEvents_WhenEventsExist()
         {
             // Arrange
-            var organizerEmail = "organizer@example.com";
+            var organizerId = Guid.NewGuid();
             var expectedEvents = new List<Event>
         {
-            new Event { /* event properties */ },
-            new Event { /* event properties */ },
+            new Event { OrganizerId = organizerId },
+            new Event { OrganizerId = organizerId },
             // Add more events as needed
         };
 
             var eventRepositoryMock = new Mock<IEventRepository>();
-            eventRepositoryMock.Setup(repo => repo.GetEventsByOrganizer(organizerEmail)).ReturnsAsync(expectedEvents);
+            eventRepositoryMock.Setup(repo => repo.GetEventsByOrganizer(organizerId)).ReturnsAsync(expectedEvents);
 
             // Act
-            var result = await eventRepositoryMock.Object.GetEventsByOrganizer(organizerEmail);
+            var result = await eventRepositoryMock.Object.GetEventsByOrganizer(organizerId);
 
             // Assert
             Assert.NotNull(result);
@@ -70,13 +66,13 @@ namespace Eventify.Test.Domain
         public async Task GetEventsByOrganizer_ReturnsEmptyList_WhenNoEventsExist()
         {
             // Arrange
-            var organizerEmail = "nonexistent_organizer@example.com";
+            var organizerId = Guid.Empty;
 
             var eventRepositoryMock = new Mock<IEventRepository>();
-            eventRepositoryMock.Setup(repo => repo.GetEventsByOrganizer(organizerEmail)).ReturnsAsync(new List<Event>());
+            eventRepositoryMock.Setup(repo => repo.GetEventsByOrganizer(organizerId)).ReturnsAsync(new List<Event>());
 
             // Act
-            var result = await eventRepositoryMock.Object.GetEventsByOrganizer(organizerEmail);
+            var result = await eventRepositoryMock.Object.GetEventsByOrganizer(organizerId);
 
             // Assert
             Assert.NotNull(result);
@@ -162,6 +158,5 @@ namespace Eventify.Test.Domain
             Assert.NotNull(result);
             Assert.Empty(result);
         }
-
     }
 }

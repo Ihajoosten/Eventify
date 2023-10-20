@@ -10,10 +10,10 @@ namespace Eventify.Infrastructure.EFRepositories
     {
         public EventRepository(IUnitOfWork unitOfWork, ILogger<EventRepository> logger) : base(unitOfWork, logger) { }
 
-        public async Task<IEnumerable<Event>?> GetEventsByOrganizer(string email)
+        public async Task<IEnumerable<Event>?> GetEventsByOrganizer(Guid organizerId)
         {
             return await _unitOfWork.Set<Event>()
-                .Where(e => e.Organizer.Email == email)
+                .Where(e => e.OrganizerId == organizerId)
                 .ToListAsync();
         }
 
@@ -34,7 +34,7 @@ namespace Eventify.Infrastructure.EFRepositories
         public async Task<IEnumerable<Event>?> GetUpcomingEventsAsync()
         {
             return await _unitOfWork.Set<Event>()
-                .Where(e => e.EndDate > DateTime.Now)
+                .Where(e => e.EndDate > DateTime.UtcNow)
                 .ToListAsync();
         }
     }
