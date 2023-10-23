@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventify.Api", "Eventify.Api\Eventify.Api.csproj", "{F51807F4-6DF3-4C7F-8345-E8C3D1CF1F56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eventify.Api", "Eventify.Api\Eventify.Api.csproj", "{F51807F4-6DF3-4C7F-8345-E8C3D1CF1F56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventify.Domain", "Eventify.Domain\Eventify.Domain.csproj", "{64354B0A-2D49-473C-A03A-509DC678690E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eventify.Domain", "Eventify.Domain\Eventify.Domain.csproj", "{64354B0A-2D49-473C-A03A-509DC678690E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventify.Application", "Eventify.Application\Eventify.Application.csproj", "{5B8DD817-8EE6-4D34-88F0-EEDF2085B1CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eventify.Application", "Eventify.Application\Eventify.Application.csproj", "{5B8DD817-8EE6-4D34-88F0-EEDF2085B1CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventify.Infrastructure", "Eventify.Infrastructure\Eventify.Infrastructure.csproj", "{D6DAB01F-7579-4B6D-B68B-9F9CF3F4E3F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eventify.Infrastructure", "Eventify.Infrastructure\Eventify.Infrastructure.csproj", "{D6DAB01F-7579-4B6D-B68B-9F9CF3F4E3F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventify.Test", "Eventify.Test\Eventify.Test.csproj", "{BE6E0474-C431-4F25-9666-854CB34F4A6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eventify.UnitTest", "Eventify.Test\Eventify.UnitTest.csproj", "{BE6E0474-C431-4F25-9666-854CB34F4A6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventify.IntegrationTests", "Eventify.IntegrationTests\Eventify.IntegrationTests.csproj", "{0B2DFA0A-6864-43B7-95B7-A4CA7A8BA3E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{BE6E0474-C431-4F25-9666-854CB34F4A6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE6E0474-C431-4F25-9666-854CB34F4A6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE6E0474-C431-4F25-9666-854CB34F4A6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B2DFA0A-6864-43B7-95B7-A4CA7A8BA3E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B2DFA0A-6864-43B7-95B7-A4CA7A8BA3E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B2DFA0A-6864-43B7-95B7-A4CA7A8BA3E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B2DFA0A-6864-43B7-95B7-A4CA7A8BA3E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

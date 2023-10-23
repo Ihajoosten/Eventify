@@ -20,7 +20,7 @@ namespace Eventify.Domain.Entities
 
         [Required(ErrorMessage = "The EndDate field is required.")]
         [DataType(DataType.DateTime)]
-        [Compare(nameof(StartDate), ErrorMessage = "End date must be greater than Start date.")]
+        [DateGreaterThan(nameof(StartDate), ErrorMessage = "End date must be greater than Start date.")]
         public DateTime EndDate { get; set; }
 
         [Required(ErrorMessage = "The Event URL field is required.")]

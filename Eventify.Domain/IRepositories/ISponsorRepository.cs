@@ -5,6 +5,6 @@ namespace Eventify.Domain.IRepositories
 {
     public interface ISponsorRepository : IRepository<Sponsor>
     {
-        Task<IEnumerable<Sponsor>?> GetSponsorsForEventAsync(Guid eventId);
+        Task<Sponsor?> GetSponsorForEventAsync(Guid eventId);
     }
 }

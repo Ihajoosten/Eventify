@@ -20,7 +20,7 @@ namespace Eventify.Domain.Entities
 
         [Required(ErrorMessage = "The EndTime field is required.")]
         [DataType(DataType.DateTime)]
-        [DateGreaterThan("StartTime", ErrorMessage = "End time must be greater than Start time.")]
+        [DateGreaterThan(nameof(StartTime), ErrorMessage = "End time must be greater than Start time.")]
         public DateTime EndTime { get; set; }
 
         [Required(ErrorMessage = "The SpeakerId field is required.")]

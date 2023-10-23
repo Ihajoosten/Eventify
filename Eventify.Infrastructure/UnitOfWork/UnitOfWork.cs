@@ -20,7 +20,6 @@ namespace Eventify.Infrastructure.UnitOfWork
         {
             try
             {
-                await _dbContext.SaveChangesAsync();
                 await _transaction!.CommitAsync();
             }
             catch
