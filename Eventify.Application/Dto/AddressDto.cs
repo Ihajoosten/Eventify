@@ -1,8 +1,6 @@
-﻿using Eventify.Application.Interfaces.Dto;
-
-namespace Eventify.Application.Dto
+﻿namespace Eventify.Application.Dto
 {
-    public class AddressDto : IAddressDto
+    public class AddressDto
     {
         public string Country { get; set; }
         public string State { get; set; }

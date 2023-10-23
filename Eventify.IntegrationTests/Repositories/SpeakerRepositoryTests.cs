@@ -1,14 +1,16 @@
-﻿namespace Eventify.IntegrationTests.Repositories
+﻿using Eventify.IntegrationTests.Config.Fixtures;
+
+namespace Eventify.IntegrationTests.Repositories
 {
-    [Collection("DatabaseCollection")]
-    public class SpeakerRepositoryTests : IClassFixture<SharedDatabaseFixture>
+    [Collection("InfraLayerCollection")]
+    public class SpeakerRepositoryTests : IClassFixture<InfraLayerFixture>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<SpeakerRepository> _logger;
         private readonly ISpeakerRepository _speakerRepository;
-        private readonly SharedDatabaseFixture _fixture;
+        private readonly InfraLayerFixture _fixture;
 
-        public SpeakerRepositoryTests(SharedDatabaseFixture fixture)
+        public SpeakerRepositoryTests(InfraLayerFixture fixture)
         {
             _fixture = fixture;
 

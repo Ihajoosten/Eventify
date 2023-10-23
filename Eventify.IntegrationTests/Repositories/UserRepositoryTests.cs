@@ -1,17 +1,18 @@
 ﻿using Eventify.Domain.Entities;
+using Eventify.IntegrationTests.Config.Fixtures;
 using System.Security.Cryptography.Xml;
 
 namespace Eventify.IntegrationTests.Repositories
 {
-    [Collection("DatabaseCollection")]
-    public class UserRepositoryTests : IClassFixture<SharedDatabaseFixture>
+    [Collection("InfraLayerCollection")]
+    public class UserRepositoryTests : IClassFixture<InfraLayerFixture>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<UserRepository> _logger;
         private readonly IUserRepository _userRepository;
-        private readonly SharedDatabaseFixture _fixture;
+        private readonly InfraLayerFixture _fixture;
 
-        public UserRepositoryTests(SharedDatabaseFixture fixture)
+        public UserRepositoryTests(InfraLayerFixture fixture)
         {
             _fixture = fixture;
 

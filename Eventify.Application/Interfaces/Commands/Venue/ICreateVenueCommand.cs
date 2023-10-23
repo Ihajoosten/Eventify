@@ -1,4 +1,4 @@
-﻿using Eventify.Domain.ValueObjects;
+﻿using Eventify.Application.Dto;
 
 namespace Eventify.Application.Interfaces.Commands.Venue
 {
@@ -7,6 +7,6 @@ namespace Eventify.Application.Interfaces.Commands.Venue
         public string Name { get; set; }
         public int Capacity { get; set; }
         public string ContactPerson { get; set; }
-        public Address VenueAddress { get; set; }
+        public AddressDto VenueAddress { get; set; }
     }
 }

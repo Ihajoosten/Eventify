@@ -1,15 +1,16 @@
 ﻿using AutoMapper;
+using Eventify.Application.Dto;
 using Eventify.Application.Interfaces.Commands;
 using Eventify.Application.Interfaces.Commands.Venue;
-using Eventify.Application.Interfaces.Dto;
 using Eventify.Application.Interfaces.Handlers;
 using Eventify.Domain.Entities;
 using Eventify.Domain.IRepositories;
+using Eventify.Domain.ValueObjects;
 using Microsoft.Extensions.Logging;
 
 namespace Eventify.Application.Handlers.Commands
 {
-    public class VenueCommandHandler : ICommandHandler<IVenueDto, IVenueCommand>
+    public class VenueCommandHandler : ICommandHandler<VenueDto, IVenueCommand>
     {
         private readonly IVenueRepository _repository;
         private readonly ILogger<VenueCommandHandler> _logger;
@@ -22,7 +23,7 @@ namespace Eventify.Application.Handlers.Commands
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<IVenueDto?> Handle(IVenueCommand command)
+        public async Task<VenueDto?> Handle(IVenueCommand command)
         {
 
             return command switch
@@ -35,7 +36,7 @@ namespace Eventify.Application.Handlers.Commands
             };
         }
 
-        private async Task<IVenueDto?> CreateVenue(ICreateVenueCommand command)
+        private async Task<VenueDto?> CreateVenue(ICreateVenueCommand command)
         {
             try
             {
@@ -45,7 +46,7 @@ namespace Eventify.Application.Handlers.Commands
                     Name = command.Name,
                     Capacity = command.Capacity,
                     ContactPerson = command.ContactPerson,
-                    VenueAddress = command.VenueAddress,
+                    VenueAddress = _mapper.Map<Address>(command.VenueAddress),
                     Created = DateTime.UtcNow,
                     Updated = DateTime.UtcNow,
                 };
@@ -54,7 +55,7 @@ namespace Eventify.Application.Handlers.Commands
                 if (created != null)
                 {
                     _logger.LogInformation($"Created new Venue, ID: {created.Id}");
-                    return _mapper.Map<IVenueDto>(created);
+                    return _mapper.Map<VenueDto>(created);
                 }
                 else
                 {
@@ -69,7 +70,7 @@ namespace Eventify.Application.Handlers.Commands
             }
         }
 
-        private async Task<IVenueDto?> UpdateVenue(IVenueCommand command)
+        private async Task<VenueDto?> UpdateVenue(IVenueCommand command)
         {
             try
             {
@@ -77,7 +78,7 @@ namespace Eventify.Application.Handlers.Commands
                 if (updated != null)
                 {
                     _logger.LogInformation($"Updated Venue, ID: {updated.Id}");
-                    return _mapper.Map<IVenueDto>(updated);
+                    return _mapper.Map<VenueDto>(updated);
                 }
                 else
                 {
@@ -92,7 +93,7 @@ namespace Eventify.Application.Handlers.Commands
             }
         }
 
-        private async Task<IVenueDto?> DeleteVenue(IDeleteVenueCommand command)
+        private async Task<VenueDto?> DeleteVenue(IDeleteVenueCommand command)
         {
             try
             {
@@ -100,7 +101,7 @@ namespace Eventify.Application.Handlers.Commands
                 if (deleted != null)
                 {
                     _logger.LogInformation($"Deleted Venue, ID: {deleted.Id}");
-                    return _mapper.Map<IVenueDto>(deleted);
+                    return _mapper.Map<VenueDto>(deleted);
                 }
                 else
                 {

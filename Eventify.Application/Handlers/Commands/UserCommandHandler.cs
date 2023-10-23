@@ -1,15 +1,16 @@
 ﻿using AutoMapper;
+using Eventify.Application.Dto;
 using Eventify.Application.Interfaces.Commands;
 using Eventify.Application.Interfaces.Commands.User;
-using Eventify.Application.Interfaces.Dto;
 using Eventify.Application.Interfaces.Handlers;
 using Eventify.Domain.Entities;
 using Eventify.Domain.IRepositories;
+using Eventify.Domain.ValueObjects;
 using Microsoft.Extensions.Logging;
 
 namespace Eventify.Application.Handlers.Commands
 {
-    public class UserCommandHandler : ICommandHandler<IUserDto, IUserCommand>
+    public class UserCommandHandler : ICommandHandler<UserDto, IUserCommand>
     {
         private readonly IUserRepository _repository;
         private readonly ILogger<UserCommandHandler> _logger;
@@ -22,7 +23,7 @@ namespace Eventify.Application.Handlers.Commands
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<IUserDto?> Handle(IUserCommand command)
+        public async Task<UserDto?> Handle(IUserCommand command)
         {
 
             return command switch
@@ -36,7 +37,7 @@ namespace Eventify.Application.Handlers.Commands
             };
         }
 
-        private async Task<IUserDto?> CreateUser(ICreateUserCommand command)
+        private async Task<UserDto?> CreateUser(ICreateUserCommand command)
         {
             try
             {
@@ -50,7 +51,7 @@ namespace Eventify.Application.Handlers.Commands
                     FirstName = command.FirstName,
                     LastName = command.LastName,
                     BirthDate = DateTime.Parse(command.BirthDate.ToShortDateString()),
-                    UserAddress = command.UserAddress,
+                    UserAddress = _mapper.Map<Address>(command.UserAddress),
                     PhoneNumber = command.PhoneNumber,
                     Gender = command.Gender,
                     Role = command.Role,
@@ -62,7 +63,7 @@ namespace Eventify.Application.Handlers.Commands
                 if (created != null)
                 {
                     _logger.LogInformation($"Created new User, ID: {created.Id}");
-                    return _mapper.Map<IUserDto>(created);
+                    return _mapper.Map<UserDto>(created);
                 }
                 else
                 {
@@ -77,7 +78,7 @@ namespace Eventify.Application.Handlers.Commands
             }
         }
 
-        private async Task<IUserDto?> UpdateUser(IUserCommand command)
+        private async Task<UserDto?> UpdateUser(IUserCommand command)
         {
             try
             {
@@ -85,7 +86,7 @@ namespace Eventify.Application.Handlers.Commands
                 if (updated != null)
                 {
                     _logger.LogInformation($"Updated User, ID: {updated.Id}");
-                    return _mapper.Map<IUserDto>(updated);
+                    return _mapper.Map<UserDto>(updated);
                 }
                 else
                 {
@@ -100,7 +101,7 @@ namespace Eventify.Application.Handlers.Commands
             }
         }
 
-        private async Task<IUserDto?> DeleteUser(IDeleteUserCommand command)
+        private async Task<UserDto?> DeleteUser(IDeleteUserCommand command)
         {
             try
             {
@@ -108,7 +109,7 @@ namespace Eventify.Application.Handlers.Commands
                 if (deleted != null)
                 {
                     _logger.LogInformation($"Deleted User, ID: {deleted.Id}");
-                    return _mapper.Map<IUserDto>(deleted);
+                    return _mapper.Map<UserDto>(deleted);
                 }
                 else
                 {

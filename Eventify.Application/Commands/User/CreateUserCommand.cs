@@ -1,6 +1,6 @@
-﻿using Eventify.Application.Interfaces.Commands.User;
+﻿using Eventify.Application.Dto;
+using Eventify.Application.Interfaces.Commands.User;
 using Eventify.Domain.Entities;
-using Eventify.Domain.ValueObjects;
 
 namespace Eventify.Application.Commands.User
 {
@@ -13,7 +13,7 @@ namespace Eventify.Application.Commands.User
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
-        public Address UserAddress { get; set; }
+        public AddressDto UserAddress { get; set; }
         public string PhoneNumber { get; set; }
         public Gender Gender { get; set; }
         public UserRole Role { get; set; }

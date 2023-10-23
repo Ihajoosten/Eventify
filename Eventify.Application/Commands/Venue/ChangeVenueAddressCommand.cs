@@ -1,11 +1,11 @@
-﻿using Eventify.Application.Interfaces.Commands.Venue;
-using Eventify.Domain.ValueObjects;
+﻿using Eventify.Application.Dto;
+using Eventify.Application.Interfaces.Commands.Venue;
 
 namespace Eventify.Application.Commands.Venue
 {
     public class ChangeVenueAddressCommand : IChangeVenueAddressCommand
     {
         public Guid Id { get; set; }
-        public Address VenueAddress { get; set; }
+        public AddressDto VenueAddress { get; set; }
     }
 }

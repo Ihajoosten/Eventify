@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using Eventify.Application.Dto;
 using Eventify.Application.Interfaces.Commands;
 using Eventify.Application.Interfaces.Commands.Event;
-using Eventify.Application.Interfaces.Dto;
 using Eventify.Application.Interfaces.Handlers;
 using Eventify.Domain.Entities;
 using Eventify.Domain.IRepositories;
@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Eventify.Application.Handlers.Commands
 {
-    public class EventCommandHandler : ICommandHandler<IEventDto, IEventCommand>
+    public class EventCommandHandler : ICommandHandler<EventDto, IEventCommand>
     {
         private readonly IEventRepository _repository;
         private readonly ILogger<EventCommandHandler> _logger;
@@ -22,7 +22,7 @@ namespace Eventify.Application.Handlers.Commands
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<IEventDto?> Handle(IEventCommand command)
+        public async Task<EventDto?> Handle(IEventCommand command)
         {
 
             return command switch
@@ -36,13 +36,14 @@ namespace Eventify.Application.Handlers.Commands
             };
         }
 
-        private async Task<IEventDto?> CreateEvent(ICreateEventCommand command)
+        public async Task<EventDto?> CreateEvent(ICreateEventCommand command)
         {
             try
             {
                 var newEvent = new Event
                 {
                     Id = Guid.NewGuid(),
+                    Title = command.Title,
                     Description = command.Description,
                     StartDate = command.StartDate,
                     EndDate = command.EndDate,
@@ -60,7 +61,7 @@ namespace Eventify.Application.Handlers.Commands
                 if (created != null)
                 {
                     _logger.LogInformation($"Created new Event, ID: {created.Id}");
-                    return _mapper.Map<IEventDto>(created);
+                    return _mapper.Map<EventDto>(created);
                 }
                 else
                 {
@@ -75,7 +76,7 @@ namespace Eventify.Application.Handlers.Commands
             }
         }
 
-        private async Task<IEventDto?> UpdateEvent(IEventCommand command)
+        private async Task<EventDto?> UpdateEvent(IEventCommand command)
         {
             try
             {
@@ -83,7 +84,7 @@ namespace Eventify.Application.Handlers.Commands
                 if (updated != null)
                 {
                     _logger.LogInformation($"Updated Event, ID: {updated.Id}");
-                    return _mapper.Map<IEventDto>(updated);
+                    return _mapper.Map<EventDto>(updated);
                 }
                 else
                 {
@@ -98,7 +99,7 @@ namespace Eventify.Application.Handlers.Commands
             }
         }
 
-        private async Task<IEventDto?> DeleteEvent(IDeleteEventCommand command)
+        private async Task<EventDto?> DeleteEvent(IDeleteEventCommand command)
         {
             try
             {
@@ -106,7 +107,7 @@ namespace Eventify.Application.Handlers.Commands
                 if (deleted != null)
                 {
                     _logger.LogInformation($"Deleted Event, ID: {deleted.Id}");
-                    return _mapper.Map<IEventDto>(deleted);
+                    return _mapper.Map<EventDto>(deleted);
                 }
                 else
                 {

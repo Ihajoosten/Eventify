@@ -1,8 +1,6 @@
-﻿using Eventify.Application.Interfaces.Dto;
-
-namespace Eventify.Application.Dto
+﻿namespace Eventify.Application.Dto
 {
-    public class EventDto : IEventDto
+    public class EventDto
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
@@ -14,8 +12,8 @@ namespace Eventify.Application.Dto
         public int MaximumAttendees { get; set; }
 
         // Related objects
-        public IUserDto Organizer { get; set; }
-        public IVenueDto Venue { get; set; }
-        public ISponsorDto Sponsor { get; set; }
+        public UserDto Organizer { get; set; }
+        public VenueDto Venue { get; set; }
+        public SponsorDto Sponsor { get; set; }
     }
 }

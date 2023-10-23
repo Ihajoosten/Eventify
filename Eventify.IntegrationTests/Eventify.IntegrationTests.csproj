@@ -32,4 +32,8 @@
     <ProjectReference Include="..\Eventify.Infrastructure\Eventify.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Handlers\Query\" />
+  </ItemGroup>
+
 </Project>

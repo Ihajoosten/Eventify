@@ -1,9 +1,8 @@
-﻿using Eventify.Application.Interfaces.Dto;
-using Eventify.Domain.Entities;
+﻿using Eventify.Domain.Entities;
 
 namespace Eventify.Application.Dto
 {
-    public class UserDto : IUserDto
+    public class UserDto
     {
         public Guid Id { get; set; }
         public string Username { get; set; }
@@ -11,14 +10,14 @@ namespace Eventify.Application.Dto
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
-        public IAddressDto UserAddress { get; set; }
+        public AddressDto UserAddress { get; set; }
         public string PhoneNumber { get; set; }
         public Gender Gender { get; set; }
         public UserRole Role { get; set; }
 
         // Navigation properties
-        public IEnumerable<IAttendeeFeedbackDto> Feedbacks { get; set; }
-        public IEnumerable<IEventDto> OrganizedEvents { get; set; }
-        public IEnumerable<IRegistrationDto> Registrations { get; set; }
+        public IEnumerable<AttendeeFeedbackDto> Feedbacks { get; set; }
+        public IEnumerable<EventDto> OrganizedEvents { get; set; }
+        public IEnumerable<RegistrationDto> Registrations { get; set; }
     }
 }

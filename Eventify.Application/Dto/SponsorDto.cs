@@ -1,8 +1,6 @@
-﻿using Eventify.Application.Interfaces.Dto;
-
-namespace Eventify.Application.Dto
+﻿namespace Eventify.Application.Dto
 {
-    internal class SponsorDto : ISponsorDto
+    public class SponsorDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -11,6 +9,6 @@ namespace Eventify.Application.Dto
         public string WebsiteUrl { get; set; }
 
         // Related objects
-        public IEnumerable<IEventDto>? SponsoredEvents { get; set; }
+        public IEnumerable<EventDto>? SponsoredEvents { get; set; }
     }
 }

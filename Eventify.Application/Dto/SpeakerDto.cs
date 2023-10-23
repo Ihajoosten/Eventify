@@ -1,8 +1,6 @@
-﻿using Eventify.Application.Interfaces.Dto;
-
-namespace Eventify.Application.Dto
+﻿namespace Eventify.Application.Dto
 {
-    public class SpeakerDto : ISpeakerDto
+    public class SpeakerDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -11,6 +9,6 @@ namespace Eventify.Application.Dto
         public string ContactEmail { get; set; }
 
         // Navigation properties
-        public IEnumerable<ISessionDto>? Sessions { get; set; }
+        public IEnumerable<SessionDto>? Sessions { get; set; }
     }
 }
